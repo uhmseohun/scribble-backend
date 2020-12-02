@@ -13,9 +13,9 @@ const handler = async (ctx, ws, event, payload) => {
         score: 0,
       };
       await redis._hmset('users', userKey, redisPayload);
-
       await ws._send({
-        type: 'userKey',
+        type: 'event',
+        event: 'setUserKey',
         payload: userKey,
       });
       await broadcast(ctx, {

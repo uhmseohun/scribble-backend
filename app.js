@@ -1,13 +1,17 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const ws = require('express-ws')(app);
 const wsHandler = require('./ws/handlers');
+const { getContext } = require('./utils');
 const ctx = ws.getWss('/ws');
+
+app.use(cors());
 
 app.ws('/ws', wsHandler(ctx));
 
 app.get('/context', async (req, res) => {
-  res.json({});
+  res.json(await getContext());
 });
 
 app.use('*', (req, res) => {

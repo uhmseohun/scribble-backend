@@ -1,9 +1,10 @@
 const eventHandler = require('./event');
 const messageHandler = require('./message');
 const drawHandler = require('./draw');
+const { broadcast } = require('../utils');
 
 const handler = (ctx, ws) => (
-  async (message) => {
+  (message) => {
     message = JSON.parse(message);
     const { type, payload, event } = message;
 
@@ -25,6 +26,10 @@ const handler = (ctx, ws) => (
 
 module.exports = (ctx) => (
   (ws, req) => {
+    broadcast(ctx, {
+      type: 'event',
+      event: 'needRefresh',
+    });
     ws._send = (payload) => {
       ws.send(JSON.stringify(payload));
     };
