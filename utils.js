@@ -26,8 +26,8 @@ const parseUsers = (users) => {
 exports.getContext = async () => ({
   users:
     parseUsers(await redis.hgetall('users')),
-  drawer: null,
-  turnEndAt: null,
+  drawer: await redis.get('drawer'),
+  turnEndAt: await redis.get('turnEndAt'),
 });
 
 exports.generateRandom = (range) => {
