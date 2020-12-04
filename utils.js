@@ -29,3 +29,7 @@ exports.getContext = async () => ({
   drawer: null,
   turnEndAt: null,
 });
+
+exports.generateRandom = (range) => {
+  return Math.floor(Math.random() * range);
+};

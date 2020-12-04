@@ -4,6 +4,7 @@ const app = express();
 const ws = require('express-ws')(app);
 const wsHandler = require('./ws/handlers');
 const { getContext } = require('./utils');
+const { refreshDrawer } = require('./ws/handlers/flow');
 const ctx = ws.getWss('/ws');
 
 app.use(cors());
@@ -19,3 +20,5 @@ app.use('*', (req, res) => {
 });
 
 module.exports = app;
+
+setInterval(refreshDrawer(ctx), 25000);

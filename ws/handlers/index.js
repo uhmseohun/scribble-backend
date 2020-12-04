@@ -1,6 +1,7 @@
 const eventHandler = require('./event');
 const messageHandler = require('./message');
 const drawHandler = require('./draw');
+const { onCloseHandler } = require('./user');
 const { broadcast } = require('../utils');
 
 const handler = (ctx, ws) => (
@@ -16,7 +17,7 @@ const handler = (ctx, ws) => (
         messageHandler(ctx, ws, payload);
         break;
       case 'draw':
-        drawHandler(ctx, ws, payload);
+        drawHandler(ctx, ws, event, payload);
         break;
       default:
         break;
@@ -34,6 +35,6 @@ module.exports = (ctx) => (
       ws.send(JSON.stringify(payload));
     };
     ws.on('message', handler(ctx, ws));
-    ws.on('close', async () => {});
+    ws.on('close', onCloseHandler(ws));
   }
 );
