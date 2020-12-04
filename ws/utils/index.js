@@ -1,6 +1,6 @@
-exports.broadcast = async (ctx, message) => {
+exports.broadcast = async (ctx, message, exclude) => {
   message = JSON.stringify(message);
   ctx.clients.forEach(async (client) => {
-    await client.send(message);
+    if (client.key !== exclude) await client.send(message);
   });
 };
