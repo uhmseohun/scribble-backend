@@ -1,5 +1,5 @@
-const app = require('./app');
-const redis = require('./redis');
+const app = require('./src/app');
+const redis = require('./src/redis');
 
 (async () => {
   await redis.del('users');
