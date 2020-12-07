@@ -7,7 +7,7 @@ const handler = async (ctx, ws, event, payload = {}) => {
     type: 'draw',
     event,
     payload,
-  });
+  }, ws.key);
 };
 
 module.exports = handler;
