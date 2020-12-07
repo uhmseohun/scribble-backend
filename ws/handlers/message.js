@@ -14,6 +14,13 @@ const handler = async (ctx, ws, payload) => {
         type: 'event',
         event: 'needRefresh',
       });
+      await broadcast(ctx, {
+        type: 'message',
+        payload: {
+          sender: '🔊',
+          message: `${sender.name}님이 맞췄어요!`
+        },
+      });
       await ws._send({
         type: 'event',
         event: 'alert',
